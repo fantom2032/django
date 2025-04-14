@@ -8,7 +8,7 @@ from django.contrib.auth.models import (
     Permission,
 )
 from django.core.exceptions import ValidationError
-from .validators import validate_username, validate_email, validate_password
+from django.validators import validate_username, validate_email, validate_password
 
 
 class ClientManager(BaseUserManager):
