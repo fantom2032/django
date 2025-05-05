@@ -7,8 +7,6 @@ from django.contrib.auth.models import (
     Group,
     Permission,
 )
-from django.core.exceptions import ValidationError
-from .validators import validate_username, validate_email, validate_password
 
 
 class ClientManager(BaseUserManager):
@@ -19,20 +17,13 @@ class ClientManager(BaseUserManager):
         password: str,
     ) -> "Client":
         """Create super user."""
-        try:
-            validate_username(username)
-            validate_email(email)
-            validate_password(password)
-        except ValidationError as ve:
-            raise ValueError(f"Invalid input: {str(ve)}")
-
         client: Client = Client()
-        client.email = self.normalize_email(email=email)
-        client.username = username
+        client.email=self.normalize_email(email=email)
+        client.username=username
         client.set_password(raw_password=password)
-        client.is_active = True
-        client.is_staff = True
-        client.is_superuser = True
+        client.is_active=True
+        client.is_staff=True
+        client.is_superuser=True
         client.save()
         return client
 
