@@ -82,18 +82,3 @@ class Images(models.Model):
 
     def __str__(self):
         return f"{self.pk} | {self.image}"
-
-from django.db import models
-
-class Comments(models.Model):
-    author = models.CharField(max_length=255)
-    text = models.TextField()
-    likes = models.PositiveIntegerField(default=0)
-    dislikes = models.PositiveIntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    parent_comment = models.ForeignKey(
-        'self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies'
-    )
-
-    def __str__(self):
-        return f"{self.author}: {self.text[:20]}"

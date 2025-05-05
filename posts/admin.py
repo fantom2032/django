@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from posts.models import Posts, Images, Categories, Comments
+from posts.models import Posts, Images, Categories
 
 
 @admin.register(Posts)
@@ -26,11 +26,3 @@ class CategoryAdmin(admin.ModelAdmin):
     model = Categories
     # list_display = ("title", "post")
     search_fields = ("title",)
-
-@admin.register(Comments)
-class CommentsAdmin(admin.ModelAdmin):
-    model = Comments
-    list_display = ("author", "text", "likes", "dislikes", "created_at", "parent_comment")
-    search_fields = ("author", "text")
-    list_filter = ("created_at",)
-    list_per_page = 50
