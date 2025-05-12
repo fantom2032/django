@@ -82,3 +82,30 @@ class Images(models.Model):
 
     def __str__(self):
         return f"{self.pk} | {self.image}"
+
+class PostReaction(models.Model):
+    user = models.ForeignKey(
+        to=Client,
+        verbose_name="пользователь",
+        on_delete=models.CASCADE,
+        related_name="user_reactions"
+    )
+    post = models.ForeignKey(
+        to=Posts,
+        verbose_name="статья",
+        on_delete=models.CASCADE,
+        related_name="post_reactions"
+    )
+    reaction = models.CharField(
+        verbose_name="реакция",
+        max_length=10,
+        choices=[("like", "Лайк"), ("dislike", "Дизлайк")]
+    )
+
+    class Meta:
+        unique_together = ("user", "post")
+        verbose_name = "реакция"
+        verbose_name_plural = "реакции"
+
+    def __str__(self):
+        return f"{self.user} -> {self.post} ({self.reaction})"
